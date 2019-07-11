@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setConnectOverTime(20000)
                 .setOperateTimeout(5000);
 
-        checkPermissions();
+
 
     }
 
@@ -90,7 +90,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onDetail(BleDevice bleDevice) {
 //todo finishdetail
                 if (BleManager.getInstance().isConnected(bleDevice)){
-
+                    Intent intent=new Intent(MainActivity.this,OperationAc.class);
+                    intent.putExtra(OperationAc.KEY_DATA,bleDevice);
+                    startActivity(intent);
                 }
             }
         });
@@ -101,6 +103,7 @@ listView_devices.setAdapter(mDeviceAdapter);
     @Override
     protected void onResume() {
         super.onResume();
+        checkPermissions();
     }
 
     @Override

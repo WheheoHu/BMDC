@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BMDC</string>
+    <string name="app_name">BMD Controller</string>
     <string name="please_open_blue">Please turn on Bluetooth first</string>
     <string name="start_scan">start scan</string>
     <string name="stop_scan">stop scan</string>

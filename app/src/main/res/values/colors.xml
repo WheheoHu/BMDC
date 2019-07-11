@@ -3,4 +3,12 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="BackGround">#202020</color>
+    <color name="BackGround_1">#272727</color>
+    <color name="Text_IISB">#555555</color>
+    <color name="Text_value">#a0a0a0</color>
+
+    <color name="black_overlay">#66000000</color>
+
 </resources>
+
