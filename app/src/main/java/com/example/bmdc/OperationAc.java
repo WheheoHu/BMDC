@@ -345,10 +345,9 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
                     break;
 
             }
-        } else if (seekBar == seekBar_ISO) {
-            textView_ISOValue.setText("ISO: " + seekBar_ISO.getProgress());
+        }
 
-        } else if (seekBar == seekBar_SHUTTER) {
+        else if (seekBar == seekBar_SHUTTER) {
             textView_SHUTTERValue.setText("SHUTTER: " + seekBar_SHUTTER.getProgress());
         }
     }

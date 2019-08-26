@@ -127,6 +127,7 @@ listView_devices.setAdapter(mDeviceAdapter);
         }
     }
 
+
     private void checkPermissions() {
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (!bluetoothAdapter.isEnabled()) {
