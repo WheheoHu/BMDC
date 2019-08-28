@@ -31,11 +31,6 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
     private SeekBar seekBar_ISO, seekBar_IRIS, seekBar_SHUTTER;
     private TextView textView_ISOValue, textView_IRISValue, textView_SHUTTERValue;
 
-    private void perchange(int seekbarprogress, String[] PER_DATA) {
-
-
-    }
-
     @Override
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
