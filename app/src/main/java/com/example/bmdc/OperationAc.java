@@ -287,31 +287,6 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
                     });
                     break;
                 case 90:
-                    BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(IRIS_DATA[9]), new BleWriteCallback() {
-                        @Override
-                        public void onWriteSuccess(final int current, final int total, final byte[] justWrite) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: write success, current: " + current
-                                            + " total: " + total
-                                            + " justWrite: " + HexUtil.formatHexString(justWrite, true));
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onWriteFailure(final BleException exception) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: " + exception.toString());
-                                }
-                            });
-
-                        }
-                    });
-                    break;
                 case 100:
                     BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(IRIS_DATA[9]), new BleWriteCallback() {
                         @Override
