@@ -4,23 +4,30 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattServer;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.clj.fastble.BleManager;
+import com.clj.fastble.callback.BleIndicateCallback;
 import com.clj.fastble.callback.BleWriteCallback;
 import com.clj.fastble.data.BleDevice;
 import com.clj.fastble.exception.BleException;
 import com.clj.fastble.utils.HexUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
     public static final String KEY_DATA = "camera";
     private static final String TAG = "OPAC";
-    private static int i_ISO = 0;
 
     private static boolean isrecord = false;
 
@@ -30,7 +37,9 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
 
     private SeekBar seekBar_ISO, seekBar_IRIS, seekBar_SHUTTER;
     private TextView textView_ISOValue, textView_IRISValue, textView_SHUTTERValue;
-
+    public BluetoothGattCharacteristic getCharacteristic() {
+        return characteristic;
+    }
     @Override
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
@@ -315,9 +324,7 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
                     break;
 
             }
-        }
-
-        else if (seekBar == seekBar_SHUTTER) {
+        } else if (seekBar == seekBar_SHUTTER) {
             textView_SHUTTERValue.setText("SHUTTER: " + seekBar_SHUTTER.getProgress());
         }
     }
@@ -359,35 +366,71 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
                 "ff080000010e030200640000"
 
         };
-            if (seekBar==seekBar_ISO){
-
-                if (seekBar_ISO.getProgress()%ISO_DATA.length==0 )
-                    Log.d(TAG, "onStopTrackingTouch: "+seekBar_ISO.getProgress());
-                BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(ISO_DATA[seekBar_ISO.getProgress()/4]), new BleWriteCallback() {
+        if (seekBar == seekBar_ISO) {
+            textView_ISOValue.setText("ISO: " + seekBar_ISO.getProgress());
+            if (seekBar_ISO.getProgress() % ISO_DATA.length == 0)
+                Log.d(TAG, "onStopTrackingTouch: " + seekBar_ISO.getProgress());
+            BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(ISO_DATA[seekBar_ISO.getProgress() / 4]), new BleWriteCallback() {
+                @Override
+                public void onWriteSuccess(final int current, final int total, final byte[] justWrite) {
+                    runOnUiThread(new Runnable() {
                         @Override
-                        public void onWriteSuccess(final int current, final int total, final byte[] justWrite) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: write success, current: " + current
-                                            + " total: " + total
-                                            + " justWrite: " + HexUtil.formatHexString(justWrite, true));
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onWriteFailure(final BleException exception) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: " + exception.toString());
-                                }
-                            });
-
+                        public void run() {
+                            Log.d(TAG, "run: write success, current: " + current
+                                    + " total: " + total
+                                    + " justWrite: " + HexUtil.formatHexString(justWrite, true));
                         }
                     });
-            }
+                }
+
+                @Override
+                public void onWriteFailure(final BleException exception) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.d(TAG, "run: " + exception.toString());
+                        }
+                    });
+
+                }
+            });
+        }
+    }
+
+    public void showDataFormCamera() {
+        BleManager.getInstance().indicate(
+                bleDevice,
+                "291D567A-6D75-11E6-8B77-86F30CA893D3",
+                "B864E140-76A0-416A-BF30-5876504537D9",
+                new BleIndicateCallback() {
+                    @Override
+                    public void onIndicateSuccess() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.d(TAG, "run: indicate success");
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onIndicateFailure(final BleException e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.d(TAG, e.toString());
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCharacteristicChanged(byte[] bytes) {
+                        Log.d(TAG, "onCharacteristicChanged: ");
+                    }
+                }
+
+        );
+
     }
 
     @Override
@@ -480,7 +523,8 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
 
         TextView textView_camera_name = findViewById(R.id.textView_Camera_name);
         textView_camera_name.setText(bleDevice.getName());
-
+        showDataFormCamera();
 
     }
+
 }
