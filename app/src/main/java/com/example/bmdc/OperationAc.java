@@ -2,10 +2,12 @@ package com.example.bmdc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Service;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +21,8 @@ import com.clj.fastble.data.BleDevice;
 import com.clj.fastble.exception.BleException;
 import com.clj.fastble.utils.HexUtil;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -26,7 +30,7 @@ import java.util.regex.Pattern;
 public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
     public static final String KEY_DATA = "camera";
     private static final String TAG = "OPAC";
-
+    private Vibrator vibrator;
     private static boolean isrecord = false;
     private static String ISO_Hex;
     private String Shutter_Angle_Hex;
@@ -61,7 +65,15 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
             "ff080000010e030200640000"
 
     };
-     private String[] IRIS_DATA = {
+    private String[] ISO_Steps = {
+            "100", "125", "160", "200",
+            "250", "320", "400", "500",
+            "640", "800", "1000", "1250",
+            "1600", "2000", "2500", "3200",
+            "4000", "5000", "6400", "8000", "10000",
+            "12800", "16000", "20000", "25600","25600"
+    };
+    private String[] IRIS_DATA = {
             "ff060000000380020000",
             "ff06000000038002cd00",
             "ff060000000380029a01",
@@ -74,11 +86,11 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
             "ff060000000380023307",
             "ff060000000380020008"
     };
-    HashMap<String,String> ISOHashMap= new HashMap<>();
+    HashMap<String, String> ISOHashMap = new HashMap<>();
 
 
     private SeekBar seekBar_ISO, seekBar_IRIS, seekBar_SHUTTER;
-    private TextView textView_ISOValue, textView_IRISValue, textView_SHUTTERValue,textView_ShowISO,textView_ShowShutter,textView_ShowAperture;
+    private TextView textView_ISOValue, textView_IRISValue, textView_SHUTTERValue, textView_ShowISO, textView_ShowShutter, textView_ShowAperture;
 
     //    public BluetoothGattCharacteristic getCharacteristic() {
 //        return characteristic;
@@ -87,9 +99,8 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
 
-
-
         if (seekBar == seekBar_IRIS) {
+           // vibrator.vibrate(20);
             textView_IRISValue.setText("IRIS: " + seekBar_IRIS.getProgress());
             switch (seekBar_IRIS.getProgress()) {
                 case 0:
@@ -395,7 +406,8 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
 
 
         if (seekBar == seekBar_ISO) {
-            textView_ISOValue.setText("ISO: " + seekBar_ISO.getProgress());
+            vibrator.vibrate(50);
+           // textView_ISOValue.setText("ISO: " + seekBar_ISO.getProgress()+"%");
             if (seekBar_ISO.getProgress() % ISO_DATA.length == 0)
                 Log.d(TAG, "onStopTrackingTouch: " + seekBar_ISO.getProgress());
             BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(ISO_DATA[seekBar_ISO.getProgress() / 4]), new BleWriteCallback() {
@@ -460,10 +472,12 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                boolean isochange=false;
                                 String HexValue = HexUtil.formatHexString(Characteristic.getValue());
                                 Log.d(TAG, "onCharacteristicChanged: " + HexValue);
                                 if (Pattern.matches(".*ff080000010e.*", HexValue)) {
                                     ISO_Hex = HexValue;
+                                    isochange=true;
                                     Log.d(TAG, "onCharacteristicChanged: ISOHex: " + ISO_Hex);
                                 } else if (Pattern.matches(".*ff0600000002.*", HexValue)) {
                                     Aperture_Hex = HexValue;
@@ -472,11 +486,18 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
                                     Shutter_Angle_Hex = HexValue;
                                     Log.d(TAG, "onCharacteristicChanged: ShutterHex: " + Shutter_Angle_Hex);
                                 }
-                                //TODO test this
-                                for (String ISOdata :ISO_DATA){
-                                    if (ISOdata.equals(ISO_Hex)){
-                                        textView_ShowISO.setText(ISOHashMap.get(ISOdata));
+                                if (isochange==true){
+                                for (String ISOdata : ISO_DATA) {
+                                    if (ISOdata.equals(ISO_Hex)) {
+                                        String isodata=ISOHashMap.get(ISOdata);
+                                        textView_ShowISO.setText(isodata);
+                                        textView_ISOValue.setText("ISO: "+isodata);
+                                        seekBar_ISO.setProgress(Arrays.asList(ISO_Steps).indexOf(isodata)*100/24);
+
+                                      //  Log.d(TAG, "run: "+Arrays.asList(ISO_Steps).indexOf(isodata)*100/24);
                                     }
+                                }
+                                isochange=false;
                                 }
 
                             }
@@ -487,7 +508,6 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
                 }
 
         );
-
 
 
     }
@@ -508,14 +528,14 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
         textView_IRISValue = findViewById(R.id.textView_IRISValue);
         textView_ISOValue = findViewById(R.id.textView_ISOValue);
         textView_SHUTTERValue = findViewById(R.id.textView_SHUTTERValue);
-        textView_ShowAperture=findViewById(R.id.textView_IRIS_value);
-        textView_ShowISO=findViewById(R.id.textView_ISO_value);
-        textView_ShowShutter=findViewById(R.id.textView_SHUTTER_value);
+        textView_ShowAperture = findViewById(R.id.textView_IRIS_value);
+        textView_ShowISO = findViewById(R.id.textView_ISO_value);
+        textView_ShowShutter = findViewById(R.id.textView_SHUTTER_value);
 
         bleDevice = getIntent().getParcelableExtra(KEY_DATA);
-
+            vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
         for (int i = 0; i < ISO_DATA.length; i++) {
-            ISOHashMap.put(ISO_DATA[i],Integer.toString(i));
+            ISOHashMap.put(ISO_DATA[i], ISO_Steps[i]);
         }
         if (bleDevice == null) {
             finish();
