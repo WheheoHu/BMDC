@@ -19,6 +19,7 @@ import com.clj.fastble.data.BleDevice;
 import com.clj.fastble.exception.BleException;
 import com.clj.fastble.utils.HexUtil;
 
+import java.util.HashMap;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
@@ -27,7 +28,7 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
     private static final String TAG = "OPAC";
 
     private static boolean isrecord = false;
-    private String ISO_Hex;
+    private static String ISO_Hex;
     private String Shutter_Angle_Hex;
     private String Aperture_Hex;
     private BleDevice bleDevice;
@@ -73,6 +74,8 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
             "ff060000000380023307",
             "ff060000000380020008"
     };
+    HashMap<String,String> ISOHashMap= new HashMap<>();
+
 
     private SeekBar seekBar_ISO, seekBar_IRIS, seekBar_SHUTTER;
     private TextView textView_ISOValue, textView_IRISValue, textView_SHUTTERValue,textView_ShowISO,textView_ShowShutter,textView_ShowAperture;
@@ -469,7 +472,12 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
                                     Shutter_Angle_Hex = HexValue;
                                     Log.d(TAG, "onCharacteristicChanged: ShutterHex: " + Shutter_Angle_Hex);
                                 }
-
+                                //TODO test this
+                                for (String ISOdata :ISO_DATA){
+                                    if (ISOdata.equals(ISO_Hex)){
+                                        textView_ShowISO.setText(ISOHashMap.get(ISOdata));
+                                    }
+                                }
 
                             }
                         });
@@ -506,7 +514,9 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
 
         bleDevice = getIntent().getParcelableExtra(KEY_DATA);
 
-
+        for (int i = 0; i < ISO_DATA.length; i++) {
+            ISOHashMap.put(ISO_DATA[i],Integer.toString(i));
+        }
         if (bleDevice == null) {
             finish();
         }
@@ -579,11 +589,7 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
         TextView textView_camera_name = findViewById(R.id.textView_Camera_name);
         textView_camera_name.setText(bleDevice.getName());
         getDataFormCamera();
-        for (String ISOdata :ISO_DATA){
-            if (ISOdata.equals(ISO_Hex)){
-                textView_ShowISO.setText(ISOdata);
-            }
-        }
+
 
     }
 
