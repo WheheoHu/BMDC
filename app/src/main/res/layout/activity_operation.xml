@@ -60,7 +60,7 @@
         android:textColor="@color/Text_IISB" />
 
     <TextView
-        android:id="@+id/textView_IRIS_value"
+        android:id="@+id/textView_Show_Aperture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView_IRIS"
@@ -83,7 +83,7 @@
 
         android:textColor="@color/Text_IISB" />
     <TextView
-        android:id="@+id/textView_ISO_value"
+        android:id="@+id/textView_Show_ISO"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView_ISO"
@@ -105,7 +105,7 @@
         android:text="SHUTTER"
         android:textColor="@color/Text_IISB"/>
     <TextView
-        android:id="@+id/textView_SHUTTER_value"
+        android:id="@+id/textView_Show_Shutter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView_SHUTTER"
