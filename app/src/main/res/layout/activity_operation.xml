@@ -124,7 +124,8 @@
         android:layout_marginLeft="240dp"
         android:layout_marginTop="60dp"
         android:text="IRIS:0"
-        android:textSize="30dp"/>
+        android:textColor="#D1D1D1"
+        android:textSize="30dp" />
 
     <SeekBar
         android:id="@+id/seekbar_IRIS"
@@ -142,6 +143,7 @@
         android:layout_marginLeft="240dp"
         android:layout_marginTop="12dp"
         android:text="ISO: "
+        android:textColor="#D1D1D1"
         android:textSize="30sp" />
 
     <SeekBar
@@ -160,7 +162,8 @@
         android:layout_marginLeft="240dp"
         android:layout_marginTop="12dp"
         android:text="SHUTTER:0"
-        android:textSize="30sp"/>
+        android:textColor="#D1D1D1"
+        android:textSize="30sp" />
 
     <SeekBar
         android:id="@+id/seekbar_SHUTTER"
