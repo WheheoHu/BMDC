@@ -237,7 +237,7 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
                                     Log.d(TAG, "onCharacteristicChanged: ISOHex: " + ISO_Hex);
                                 } else if (Pattern.matches(".*ff0600000002.*", HexValue)) {
                                     Aperture_Hex = HexValue;
-                                    aperturechange=true;
+                                    aperturechange = true;
                                     Log.d(TAG, "onCharacteristicChanged: ApertureHex: " + Aperture_Hex);
                                 } else if (Pattern.matches(".*ff080000010b.*", HexValue)) {
                                     Shutter_Angle_Hex = HexValue;
@@ -253,16 +253,16 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
                                         }
                                     }
                                     isochange = false;
-                                }else if (aperturechange){
-                                    for (String Ap_data:Aperture_DATA){
-                                        if (Ap_data.equals(Aperture_Hex)){
-                                            String aperturedata=ApertureHashMap.get(Ap_data);
+                                } else if (aperturechange) {
+                                    for (String Ap_data : Aperture_DATA) {
+                                        if (Ap_data.equals(Aperture_Hex)) {
+                                            String aperturedata = ApertureHashMap.get(Ap_data);
                                             textView_ShowAperture.setText(aperturedata);
-                                            textView_IRISValue.setText("IRIS: "+aperturedata);
-                                            seekBar_IRIS.setProgress(Arrays.asList(Aperture_Steps).indexOf(aperturedata)*100/Aperture_DATA.length);
+                                            textView_IRISValue.setText("IRIS: " + aperturedata);
+                                            seekBar_IRIS.setProgress(Arrays.asList(Aperture_Steps).indexOf(aperturedata) * 100 / Aperture_DATA.length);
                                         }
                                     }
-                                    aperturechange=false;
+                                    aperturechange = false;
                                 }
 
                             }
@@ -305,9 +305,8 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
             ISOHashMap.put(ISO_DATA[i], ISO_Steps[i]);
         }
         for (int i = 0; i < Aperture_DATA.length; i++) {
-            ApertureHashMap.put(Aperture_DATA[i],Aperture_Steps[i]);
+            ApertureHashMap.put(Aperture_DATA[i], Aperture_Steps[i]);
         }
-
 
 
         if (bleDevice == null) {
