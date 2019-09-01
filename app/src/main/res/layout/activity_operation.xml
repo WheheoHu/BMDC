@@ -123,7 +123,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="240dp"
         android:layout_marginTop="60dp"
-        android:text="IRIS:0"
+        android:text="IRIS:"
         android:textColor="#D1D1D1"
         android:textSize="30dp" />
 
@@ -185,7 +185,7 @@
 
     <TextView
         android:id="@+id/textView_Camera_name"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="63dp"
         android:layout_alignTop="@+id/view"
         android:layout_marginLeft="18dp"

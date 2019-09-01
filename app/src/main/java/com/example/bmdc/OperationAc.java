@@ -60,7 +60,6 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
             "ff080000010e030200320000",
             "ff080000010e0302803e0000",
             "ff080000010e0302204e0000",
-            "ff080000010e030200640000",
             "ff080000010e030200640000"
 
     };
@@ -70,9 +69,9 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
             "640", "800", "1000", "1250",
             "1600", "2000", "2500", "3200",
             "4000", "5000", "6400", "8000", "10000",
-            "12800", "16000", "20000", "25600","25600"
+            "12800", "16000", "20000", "25600", "25600"
     };
-    private String[] IRIS_DATA = {
+    private String[] Aperture_DATA = {
             "ff060000000380020000",
             "ff06000000038002cd00",
             "ff060000000380029a01",
@@ -85,8 +84,22 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
             "ff060000000380023307",
             "ff060000000380020008"
     };
-    HashMap<String, String> ISOHashMap = new HashMap<>();
+    private String[] Aperture_Steps = {
+            "100",
+            "90",
+            "80",
+            "70",
+            "60",
+            "50",
+            "40",
+            "30",
+            "20",
+            "10",
+            "0"
+    };
 
+    HashMap<String, String> ISOHashMap = new HashMap<>();
+    HashMap<String, String> ApertureHashMap = new HashMap<>();
 
     private SeekBar seekBar_ISO, seekBar_IRIS, seekBar_SHUTTER;
     private TextView textView_ISOValue, textView_IRISValue, textView_SHUTTERValue, textView_ShowISO, textView_ShowShutter, textView_ShowAperture;
@@ -99,299 +112,17 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
 
 
         if (seekBar == seekBar_IRIS) {
-           // vibrator.vibrate(20);
-            textView_IRISValue.setText("IRIS: " + seekBar_IRIS.getProgress());
-            switch (seekBar_IRIS.getProgress()) {
-                case 0:
-                    BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(IRIS_DATA[0]), new BleWriteCallback() {
-                        @Override
-                        public void onWriteSuccess(final int current, final int total, final byte[] justWrite) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: write success, current: " + current
-                                            + " total: " + total
-                                            + " justWrite: " + HexUtil.formatHexString(justWrite, true));
-                                }
-                            });
-                        }
+            // vibrator.vibrate(20);
+            textView_IRISValue.setText("IRIS: " + (100 - seekBar_IRIS.getProgress()) + " %");
 
-                        @Override
-                        public void onWriteFailure(final BleException exception) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: " + exception.toString());
-                                }
-                            });
-
-                        }
-                    });
-                    break;
-                case 10:
-                    BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(IRIS_DATA[1]), new BleWriteCallback() {
-                        @Override
-                        public void onWriteSuccess(final int current, final int total, final byte[] justWrite) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: write success, current: " + current
-                                            + " total: " + total
-                                            + " justWrite: " + HexUtil.formatHexString(justWrite, true));
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onWriteFailure(final BleException exception) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: " + exception.toString());
-                                }
-                            });
-
-                        }
-                    });
-                    break;
-                case 20:
-                    BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(IRIS_DATA[2]), new BleWriteCallback() {
-                        @Override
-                        public void onWriteSuccess(final int current, final int total, final byte[] justWrite) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: write success, current: " + current
-                                            + " total: " + total
-                                            + " justWrite: " + HexUtil.formatHexString(justWrite, true));
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onWriteFailure(final BleException exception) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: " + exception.toString());
-                                }
-                            });
-
-                        }
-                    });
-                    break;
-                case 30:
-                    BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(IRIS_DATA[3]), new BleWriteCallback() {
-                        @Override
-                        public void onWriteSuccess(final int current, final int total, final byte[] justWrite) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: write success, current: " + current
-                                            + " total: " + total
-                                            + " justWrite: " + HexUtil.formatHexString(justWrite, true));
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onWriteFailure(final BleException exception) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: " + exception.toString());
-                                }
-                            });
-
-                        }
-                    });
-                    break;
-                case 40:
-                    BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(IRIS_DATA[4]), new BleWriteCallback() {
-                        @Override
-                        public void onWriteSuccess(final int current, final int total, final byte[] justWrite) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: write success, current: " + current
-                                            + " total: " + total
-                                            + " justWrite: " + HexUtil.formatHexString(justWrite, true));
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onWriteFailure(final BleException exception) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: " + exception.toString());
-                                }
-                            });
-
-                        }
-                    });
-                    break;
-                case 50:
-                    BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(IRIS_DATA[5]), new BleWriteCallback() {
-                        @Override
-                        public void onWriteSuccess(final int current, final int total, final byte[] justWrite) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: write success, current: " + current
-                                            + " total: " + total
-                                            + " justWrite: " + HexUtil.formatHexString(justWrite, true));
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onWriteFailure(final BleException exception) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: " + exception.toString());
-                                }
-                            });
-
-                        }
-                    });
-                    break;
-                case 60:
-                    BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(IRIS_DATA[6]), new BleWriteCallback() {
-                        @Override
-                        public void onWriteSuccess(final int current, final int total, final byte[] justWrite) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: write success, current: " + current
-                                            + " total: " + total
-                                            + " justWrite: " + HexUtil.formatHexString(justWrite, true));
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onWriteFailure(final BleException exception) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: " + exception.toString());
-                                }
-                            });
-
-                        }
-                    });
-                    break;
-                case 70:
-                    BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(IRIS_DATA[7]), new BleWriteCallback() {
-                        @Override
-                        public void onWriteSuccess(final int current, final int total, final byte[] justWrite) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: write success, current: " + current
-                                            + " total: " + total
-                                            + " justWrite: " + HexUtil.formatHexString(justWrite, true));
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onWriteFailure(final BleException exception) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: " + exception.toString());
-                                }
-                            });
-
-                        }
-                    });
-                    break;
-                case 80:
-                    BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(IRIS_DATA[8]), new BleWriteCallback() {
-                        @Override
-                        public void onWriteSuccess(final int current, final int total, final byte[] justWrite) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: write success, current: " + current
-                                            + " total: " + total
-                                            + " justWrite: " + HexUtil.formatHexString(justWrite, true));
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onWriteFailure(final BleException exception) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: " + exception.toString());
-                                }
-                            });
-
-                        }
-                    });
-                    break;
-                case 90:
-
-                    BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(IRIS_DATA[9]), new BleWriteCallback() {
-                        @Override
-                        public void onWriteSuccess(final int current, final int total, final byte[] justWrite) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: write success, current: " + current
-                                            + " total: " + total
-                                            + " justWrite: " + HexUtil.formatHexString(justWrite, true));
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onWriteFailure(final BleException exception) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: " + exception.toString());
-                                }
-                            });
-
-                        }
-                    });
-                    break;
-                case 100:
-                    BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(IRIS_DATA[10]), new BleWriteCallback() {
-                        @Override
-                        public void onWriteSuccess(final int current, final int total, final byte[] justWrite) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: write success, current: " + current
-                                            + " total: " + total
-                                            + " justWrite: " + HexUtil.formatHexString(justWrite, true));
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onWriteFailure(final BleException exception) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d(TAG, "run: " + exception.toString());
-                                }
-                            });
-
-                        }
-                    });
-                    break;
-            }
         } else if (seekBar == seekBar_SHUTTER) {
             textView_SHUTTERValue.setText("SHUTTER: " + seekBar_SHUTTER.getProgress());
+        } else if (seekBar == seekBar_ISO) {
+
+            textView_ISOValue.setText("ISO: " + ISOHashMap.get(ISO_DATA[(int) ((float) seekBar_ISO.getProgress() * (ISO_DATA.length - 1) / 100)]));
+
+            // Log.d(TAG, "onProgressChanged: testnum: "+ISO_DATA.length);
+
         }
     }
 
@@ -406,10 +137,7 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
 
         if (seekBar == seekBar_ISO) {
             vibrator.vibrate(50);
-           // textView_ISOValue.setText("ISO: " + seekBar_ISO.getProgress()+"%");
-            if (seekBar_ISO.getProgress() % ISO_DATA.length == 0)
-                Log.d(TAG, "onStopTrackingTouch: " + seekBar_ISO.getProgress());
-            BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(ISO_DATA[seekBar_ISO.getProgress() / 4]), new BleWriteCallback() {
+            BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(ISO_DATA[(int) ((float) seekBar_ISO.getProgress() * (ISO_DATA.length - 1) / 100)]), new BleWriteCallback() {
                 @Override
                 public void onWriteSuccess(final int current, final int total, final byte[] justWrite) {
                     runOnUiThread(new Runnable() {
@@ -433,6 +161,33 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
 
                 }
             });
+        } else if (seekBar == seekBar_IRIS) {
+            vibrator.vibrate(50);
+            BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(Aperture_DATA[(int) ((float) seekBar_IRIS.getProgress() * (Aperture_DATA.length - 1) / 100)]), new BleWriteCallback() {
+                @Override
+                public void onWriteSuccess(final int current, final int total, final byte[] justWrite) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.d(TAG, "run: write success, current: " + current
+                                    + " total: " + total
+                                    + " justWrite: " + HexUtil.formatHexString(justWrite, true));
+                        }
+                    });
+                }
+
+                @Override
+                public void onWriteFailure(final BleException e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.d(TAG, "run: " + e.toString());
+                        }
+                    });
+                }
+            });
+        } else if (seekBar == seekBar_SHUTTER) {
+            Log.d(TAG, "onStopTrackingTouch: mm");
         }
     }
 
@@ -471,32 +226,43 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                boolean isochange=false;
+                                boolean isochange = false;
+                                boolean aperturechange = false;
+                                boolean shutterchange = false;
                                 String HexValue = HexUtil.formatHexString(Characteristic.getValue());
                                 Log.d(TAG, "onCharacteristicChanged: " + HexValue);
                                 if (Pattern.matches(".*ff080000010e.*", HexValue)) {
                                     ISO_Hex = HexValue;
-                                    isochange=true;
+                                    isochange = true;
                                     Log.d(TAG, "onCharacteristicChanged: ISOHex: " + ISO_Hex);
                                 } else if (Pattern.matches(".*ff0600000002.*", HexValue)) {
                                     Aperture_Hex = HexValue;
+                                    aperturechange=true;
                                     Log.d(TAG, "onCharacteristicChanged: ApertureHex: " + Aperture_Hex);
                                 } else if (Pattern.matches(".*ff080000010b.*", HexValue)) {
                                     Shutter_Angle_Hex = HexValue;
                                     Log.d(TAG, "onCharacteristicChanged: ShutterHex: " + Shutter_Angle_Hex);
                                 }
-                                if (isochange==true){
-                                for (String ISOdata : ISO_DATA) {
-                                    if (ISOdata.equals(ISO_Hex)) {
-                                        String isodata=ISOHashMap.get(ISOdata);
-                                        textView_ShowISO.setText(isodata);
-                                        textView_ISOValue.setText("ISO: "+isodata);
-                                        seekBar_ISO.setProgress(Arrays.asList(ISO_Steps).indexOf(isodata)*100/24);
-
-                                      //  Log.d(TAG, "run: "+Arrays.asList(ISO_Steps).indexOf(isodata)*100/24);
+                                if (isochange) {
+                                    for (String ISOdata : ISO_DATA) {
+                                        if (ISOdata.equals(ISO_Hex)) {
+                                            String isodata = ISOHashMap.get(ISOdata);
+                                            textView_ShowISO.setText(isodata);
+                                            textView_ISOValue.setText("ISO: " + isodata);
+                                            seekBar_ISO.setProgress(Arrays.asList(ISO_Steps).indexOf(isodata) * 100 / 24);
+                                        }
                                     }
-                                }
-                                isochange=false;
+                                    isochange = false;
+                                }else if (aperturechange){
+                                    for (String Ap_data:Aperture_DATA){
+                                        if (Ap_data.equals(Aperture_Hex)){
+                                            String aperturedata=ApertureHashMap.get(Ap_data);
+                                            textView_ShowAperture.setText(aperturedata);
+                                            textView_IRISValue.setText("IRIS: "+aperturedata);
+                                            seekBar_IRIS.setProgress(Arrays.asList(Aperture_Steps).indexOf(aperturedata)*100/Aperture_DATA.length);
+                                        }
+                                    }
+                                    aperturechange=false;
                                 }
 
                             }
@@ -532,13 +298,22 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
         textView_ShowShutter = findViewById(R.id.textView_Show_Shutter);
 
         bleDevice = getIntent().getParcelableExtra(KEY_DATA);
-            vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
+        vibrator = (Vibrator) getSystemService(Service.VIBRATOR_SERVICE);
+
+        //Init HashMap
         for (int i = 0; i < ISO_DATA.length; i++) {
             ISOHashMap.put(ISO_DATA[i], ISO_Steps[i]);
         }
+        for (int i = 0; i < Aperture_DATA.length; i++) {
+            ApertureHashMap.put(Aperture_DATA[i],Aperture_Steps[i]);
+        }
+
+
+
         if (bleDevice == null) {
             finish();
         }
+
         Log.d(TAG, "onCreate: " + bleDevice.getName());
 
         Button button_rec = findViewById(R.id.button_record);
