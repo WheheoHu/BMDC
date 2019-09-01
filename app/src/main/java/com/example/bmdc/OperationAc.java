@@ -21,7 +21,6 @@ import com.clj.fastble.data.BleDevice;
 import com.clj.fastble.exception.BleException;
 import com.clj.fastble.utils.HexUtil;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
@@ -528,9 +527,9 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
         textView_IRISValue = findViewById(R.id.textView_IRISValue);
         textView_ISOValue = findViewById(R.id.textView_ISOValue);
         textView_SHUTTERValue = findViewById(R.id.textView_SHUTTERValue);
-        textView_ShowAperture = findViewById(R.id.textView_IRIS_value);
-        textView_ShowISO = findViewById(R.id.textView_ISO_value);
-        textView_ShowShutter = findViewById(R.id.textView_SHUTTER_value);
+        textView_ShowAperture = findViewById(R.id.textView_Show_Aperture);
+        textView_ShowISO = findViewById(R.id.textView_Show_ISO);
+        textView_ShowShutter = findViewById(R.id.textView_Show_Shutter);
 
         bleDevice = getIntent().getParcelableExtra(KEY_DATA);
             vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
