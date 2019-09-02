@@ -121,7 +121,7 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
 
             textView_ISOValue.setText("ISO: " + ISOHashMap.get(ISO_DATA[(int) ((float) seekBar_ISO.getProgress() * (ISO_DATA.length - 1) / 100)]));
 
-            // Log.d(TAG, "onProgressChanged: testnum: "+ISO_DATA.length);
+             Log.d(TAG, "onProgressChanged: testnum: "+(int) ((float) seekBar_ISO.getProgress() * (ISO_DATA.length - 1) / 100));
 
         }
     }
@@ -244,12 +244,13 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
                                     Log.d(TAG, "onCharacteristicChanged: ShutterHex: " + Shutter_Angle_Hex);
                                 }
                                 if (isochange) {
-                                    for (String ISOdata : ISO_DATA) {
-                                        if (ISOdata.equals(ISO_Hex)) {
-                                            String isodata = ISOHashMap.get(ISOdata);
+                                    for (String ISO_data : ISO_DATA) {
+                                        if (ISO_data.equals(ISO_Hex)) {
+                                            String isodata = ISOHashMap.get(ISO_data);
                                             textView_ShowISO.setText(isodata);
                                             textView_ISOValue.setText("ISO: " + isodata);
-                                            seekBar_ISO.setProgress(Arrays.asList(ISO_Steps).indexOf(isodata) * 100 / 24);
+                                            seekBar_ISO.setProgress((int)((float)(Arrays.asList(ISO_Steps).indexOf(isodata)+1) * 100 / ISO_DATA.length));
+                                            break;
                                         }
                                     }
                                     isochange = false;
@@ -260,6 +261,7 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
                                             textView_ShowAperture.setText(aperturedata);
                                             textView_IRISValue.setText("IRIS: " + aperturedata);
                                             seekBar_IRIS.setProgress(Arrays.asList(Aperture_Steps).indexOf(aperturedata) * 100 / Aperture_DATA.length);
+                                            break;
                                         }
                                     }
                                     aperturechange = false;
