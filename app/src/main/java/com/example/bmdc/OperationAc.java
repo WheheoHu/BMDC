@@ -97,10 +97,53 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
             "10",
             "0"
     };
-
+    private String[] Shutter_DATA = {
+            "ff080000010b030265040000",
+            "ff080000010b0302dc050000",
+            "ff080000010b0302ca080000",
+            "ff080000010b0302b80b0000",
+            "ff080000010b0302a60e0000",
+            "ff080000010b030294110000",
+            "ff080000010b030270170000",
+            "ff080000010b0302201c0000",
+            "ff080000010b03024c1d0000",
+            "ff080000010b030228230000",
+            "ff080000010b0302302a0000",
+            "ff080000010b0302e02e0000",
+            "ff080000010b030240380000",
+            "ff080000010b0302983a0000",
+            "ff080000010b030280430000",
+            "ff080000010b030250460000",
+            "ff080000010b030260540000",
+            "ff080000010b030278690000",
+            "ff080000010b0302907e0000",
+            "ff080000010b0302a08c0000"
+    };
+    private String[] Shutter_steps = {
+            "11.2",
+            "15",
+            "22.5",
+            "30",
+            "37.5",
+            "45",
+            "60",
+            "72",
+            "75",
+            "90",
+            "108",
+            "120",
+            "144",
+            "150",
+            "172.8",
+            "180",
+            "216",
+            "270",
+            "324",
+            "360"
+    };
     HashMap<String, String> ISOHashMap = new HashMap<>();
     HashMap<String, String> ApertureHashMap = new HashMap<>();
-
+    HashMap<String, String> ShutterHashMap = new HashMap<>();
     private SeekBar seekBar_ISO, seekBar_IRIS, seekBar_SHUTTER;
     private TextView textView_ISOValue, textView_IRISValue, textView_SHUTTERValue, textView_ShowISO, textView_ShowShutter, textView_ShowAperture;
 
@@ -116,12 +159,12 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
             textView_IRISValue.setText("IRIS: " + (100 - seekBar_IRIS.getProgress()) + " %");
 
         } else if (seekBar == seekBar_SHUTTER) {
-            textView_SHUTTERValue.setText("SHUTTER: " + seekBar_SHUTTER.getProgress());
+            textView_SHUTTERValue.setText("SHUTTER: " + ShutterHashMap.get(Shutter_DATA[(int) ((float) seekBar_SHUTTER.getProgress() * (Shutter_DATA.length - 1) / 100)]));
         } else if (seekBar == seekBar_ISO) {
 
             textView_ISOValue.setText("ISO: " + ISOHashMap.get(ISO_DATA[(int) ((float) seekBar_ISO.getProgress() * (ISO_DATA.length - 1) / 100)]));
 
-             Log.d(TAG, "onProgressChanged: testnum: "+(int) ((float) seekBar_ISO.getProgress() * (ISO_DATA.length - 1) / 100));
+            Log.d(TAG, "onProgressChanged: testnum: " + (int) ((float) seekBar_ISO.getProgress() * (ISO_DATA.length - 1) / 100));
 
         }
     }
@@ -187,7 +230,30 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
                 }
             });
         } else if (seekBar == seekBar_SHUTTER) {
-            Log.d(TAG, "onStopTrackingTouch: mm");
+            vibrator.vibrate(50);
+            BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(Shutter_DATA[(int) ((float) seekBar_SHUTTER.getProgress() * (Shutter_DATA.length - 1) / 100)]), new BleWriteCallback() {
+                @Override
+                public void onWriteSuccess(final int current, final int total, final byte[] justWrite) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.d(TAG, "run: write success, current: " + current
+                                    + " total: " + total
+                                    + " justWrite: " + HexUtil.formatHexString(justWrite, true));
+                        }
+                    });
+                }
+
+                @Override
+                public void onWriteFailure(final BleException e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.d(TAG, "run: " + e.toString());
+                        }
+                    });
+                }
+            });
         }
     }
 
@@ -223,9 +289,11 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
 
                     @Override
                     public void onCharacteristicChanged(byte[] bytes) {
+
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+
                                 boolean isochange = false;
                                 boolean aperturechange = false;
                                 boolean shutterchange = false;
@@ -241,15 +309,18 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
                                     Log.d(TAG, "onCharacteristicChanged: ApertureHex: " + Aperture_Hex);
                                 } else if (Pattern.matches(".*ff080000010b.*", HexValue)) {
                                     Shutter_Angle_Hex = HexValue;
+                                    shutterchange=true;
                                     Log.d(TAG, "onCharacteristicChanged: ShutterHex: " + Shutter_Angle_Hex);
                                 }
                                 if (isochange) {
                                     for (String ISO_data : ISO_DATA) {
                                         if (ISO_data.equals(ISO_Hex)) {
-                                            String isodata = ISOHashMap.get(ISO_data);
-                                            textView_ShowISO.setText(isodata);
-                                            textView_ISOValue.setText("ISO: " + isodata);
-                                            seekBar_ISO.setProgress((int)((float)(Arrays.asList(ISO_Steps).indexOf(isodata)+1) * 100 / ISO_DATA.length));
+                                            String iso = ISOHashMap.get(ISO_data);
+                                            textView_ShowISO.setText(iso);
+                                            textView_ISOValue.setText("ISO: " + iso);
+
+                                            seekBar_ISO.setProgress((int) ((float) (Arrays.asList(ISO_Steps).indexOf(iso) + 1) * 100 / ISO_DATA.length));
+
                                             break;
                                         }
                                     }
@@ -257,14 +328,25 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
                                 } else if (aperturechange) {
                                     for (String Ap_data : Aperture_DATA) {
                                         if (Ap_data.equals(Aperture_Hex)) {
-                                            String aperturedata = ApertureHashMap.get(Ap_data);
-                                            textView_ShowAperture.setText(aperturedata);
-                                            textView_IRISValue.setText("IRIS: " + aperturedata);
-                                            seekBar_IRIS.setProgress(Arrays.asList(Aperture_Steps).indexOf(aperturedata) * 100 / Aperture_DATA.length);
+                                            String aperture = ApertureHashMap.get(Ap_data);
+                                            textView_ShowAperture.setText(aperture);
+                                            textView_IRISValue.setText("IRIS: " + aperture);
+                                            seekBar_IRIS.setProgress(Arrays.asList(Aperture_Steps).indexOf(aperture) * 100 / Aperture_DATA.length);
                                             break;
                                         }
                                     }
                                     aperturechange = false;
+                                } else if (shutterchange) {
+                                    for (String shutterAngle : Shutter_DATA) {
+                                        if (shutterAngle.equals(Shutter_Angle_Hex)) {
+                                            String shutter = ShutterHashMap.get(shutterAngle);
+                                            textView_ShowShutter.setText(shutter);
+                                            textView_SHUTTERValue.setText("SHUTTER: " + shutter);
+                                            seekBar_SHUTTER.setProgress((Arrays.asList(Shutter_steps).indexOf(shutter)+1) * 100 / Shutter_steps.length);
+                                            break;
+                                        }
+                                    }
+                                    shutterchange = false;
                                 }
 
                             }
@@ -309,7 +391,9 @@ public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarC
         for (int i = 0; i < Aperture_DATA.length; i++) {
             ApertureHashMap.put(Aperture_DATA[i], Aperture_Steps[i]);
         }
-
+        for (int i = 0; i < Shutter_DATA.length; i++) {
+            ShutterHashMap.put(Shutter_DATA[i], Shutter_steps[i]);
+        }
 
         if (bleDevice == null) {
             finish();
