@@ -64,8 +64,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView_IRIS"
+        android:layout_alignStart="@+id/view"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="48dp"
         android:text="0"
         android:textColor="@color/Text_value" />
 
@@ -178,21 +180,30 @@
         android:layout_width="42.5dp"
         android:layout_height="42.5dp"
         android:layout_below="@id/view_horline2"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="35dp"
-        android:background="@mipmap/record"
-        />
+        android:layout_alignStart="@+id/view"
+        android:layout_alignEnd="@+id/view"
+        android:layout_alignBottom="@+id/view"
+        android:layout_marginStart="40dp"
+
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="39dp"
+        android:background="@mipmap/record" />
 
     <TextView
         android:id="@+id/textView_Camera_name"
         android:layout_width="100dp"
         android:layout_height="63dp"
+        android:layout_alignStart="@+id/view"
         android:layout_alignTop="@+id/view"
-        android:layout_marginLeft="18dp"
-        android:layout_marginTop="8dp"
+        android:layout_alignEnd="@+id/view"
+        android:layout_marginStart="5dp"
+
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="9dp"
         android:inputType="textMultiLine"
-        android:textColor="@color/Text_value"
-        android:text="BLACKMAGIC" />
+        android:text="BLACKMAGIC"
+        android:textColor="@color/Text_value" />
 
 
 </RelativeLayout>
