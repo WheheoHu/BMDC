@@ -52,10 +52,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="84dp"
-        android:text="IRIS"
+        android:text="@string/Aperture"
 
         android:textColor="@color/Text_IISB" />
 
@@ -68,21 +67,20 @@
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="5dp"
-        android:text="0"
         android:textColor="@color/Text_value" />
 
     <TextView
         android:id="@+id/textView_ISO"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_Show_Aperture"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginTop="148dp"
-        android:text="ISO"
 
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="21dp"
+
+        android:text="@string/ISO"
         android:textColor="@color/Text_IISB" />
     <TextView
         android:id="@+id/textView_Show_ISO"
@@ -91,7 +89,7 @@
         android:layout_below="@id/textView_ISO"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="48dp"
-        android:text="0"
+
         android:textColor="@color/Text_value" />
 
     <TextView
@@ -101,19 +99,19 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="29dp"
-        android:layout_marginLeft="29dp"
+        android:layout_marginStart="30dp"
+
         android:layout_marginTop="226dp"
-        android:text="SHUTTER"
-        android:textColor="@color/Text_IISB"/>
+        android:text="@string/Shutter"
+        android:textColor="@color/Text_IISB" />
+
     <TextView
         android:id="@+id/textView_Show_Shutter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView_SHUTTER"
-        android:layout_marginTop="5dp"
         android:layout_marginLeft="48dp"
-        android:text="0"
+        android:layout_marginTop="5dp"
         android:textColor="@color/Text_value" />
 
 
@@ -204,6 +202,11 @@
         android:inputType="textMultiLine"
         android:text="BLACKMAGIC"
         android:textColor="@color/Text_value" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/ViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </RelativeLayout>

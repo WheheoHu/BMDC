@@ -14,4 +14,10 @@
     <string name="connect_fail">connection failed</string>
     <string name="active_disconnected">disconnect</string>
     <string name="disconnected">Connection disconnect</string>
+    <string name="Aperture">Aperture</string>
+    <string name="ISO">ISO</string>
+    <string name="Shutter">Shutter</string>
+    <string name="title_activity_setting">setting</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
