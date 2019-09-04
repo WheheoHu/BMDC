@@ -117,7 +117,7 @@
 
     <TextView
         android:id="@+id/textView_IRISValue"
-        android:layout_width="match_parent"
+        android:layout_width="299dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -137,11 +137,11 @@
 
     <TextView
         android:id="@+id/textView_ISOValue"
-        android:layout_width="match_parent"
+        android:layout_width="297dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/seekbar_IRIS"
         android:layout_marginLeft="240dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="13dp"
         android:text="ISO: "
         android:textColor="#D1D1D1"
         android:textSize="30sp" />
@@ -156,11 +156,11 @@
 
     <TextView
         android:id="@+id/textView_SHUTTERValue"
-        android:layout_width="match_parent"
+        android:layout_width="296dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/seekbar_ISO"
         android:layout_marginLeft="240dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="13dp"
         android:text="SHUTTER:"
         android:textColor="#D1D1D1"
         android:textSize="30sp" />
@@ -180,7 +180,7 @@
         android:layout_below="@id/view_horline2"
         android:layout_alignStart="@+id/view"
         android:layout_alignEnd="@+id/view"
-        android:layout_alignBottom="@+id/view"
+
         android:layout_marginStart="40dp"
 
         android:layout_marginTop="39dp"
@@ -202,6 +202,19 @@
         android:inputType="textMultiLine"
         android:text="BLACKMAGIC"
         android:textColor="@color/Text_value" />
+
+    <Button
+        android:id="@+id/button_setting"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="479dp"
+        android:layout_marginTop="142dp"
+        android:layout_toEndOf="@+id/view"
+        android:background="#00FFFFFF"
+        android:text="@string/Setting"
+        android:textColor="#118675"
+        />
 
 
 </RelativeLayout>

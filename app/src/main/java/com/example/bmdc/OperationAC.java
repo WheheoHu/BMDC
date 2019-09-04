@@ -6,6 +6,7 @@ import android.app.Service;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -146,6 +147,7 @@ public class OperationAC extends AppCompatActivity implements SeekBar.OnSeekBarC
     HashMap<String, String> ShutterHashMap = new HashMap<>();
     private SeekBar seekBar_ISO, seekBar_IRIS, seekBar_SHUTTER;
     private TextView textView_ISOValue, textView_IRISValue, textView_SHUTTERValue, textView_ShowISO, textView_ShowShutter, textView_ShowAperture;
+    private Button button_Setting;
 
     //    public BluetoothGattCharacteristic getCharacteristic() {
 //        return characteristic;
@@ -467,8 +469,22 @@ public class OperationAC extends AppCompatActivity implements SeekBar.OnSeekBarC
 
         TextView textView_camera_name = findViewById(R.id.textView_Camera_name);
         textView_camera_name.setText(bleDevice.getName());
+        setSettingButtom();
         getDataFormCamera();
 
+
+    }
+
+    private void setSettingButtom() {
+        button_Setting=findViewById(R.id.button_setting);
+        button_Setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(OperationAC.this,SettingAC.class);
+                intent.putExtra(SettingAC.KEY_DATA,bleDevice);
+                startActivity(intent);
+            }
+        });
 
     }
 

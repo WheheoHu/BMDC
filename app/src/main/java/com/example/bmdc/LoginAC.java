@@ -95,7 +95,7 @@ public class LoginAC extends AppCompatActivity implements View.OnClickListener {
                 }
             }
         });
-ListView listView_devices=(ListView)findViewById(R.id.list_device);
+ListView listView_devices= findViewById(R.id.list_device);
 listView_devices.setAdapter(mDeviceAdapter);
     }
 
@@ -114,15 +114,12 @@ listView_devices.setAdapter(mDeviceAdapter);
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-
-            case R.id.button_scan:
-                if (button_scan.getText().equals(getString(R.string.start_scan))) {
-                    checkPermissions();
-                } else if (button_scan.getText().equals(R.string.stop_scan)) {
-                    BleManager.getInstance().cancelScan();
-                }
-                break;
+        if (view.getId() == R.id.button_scan) {
+            if (button_scan.getText().equals(getString(R.string.start_scan))) {
+                checkPermissions();
+            } else if (button_scan.getText().equals(R.string.stop_scan)) {
+                BleManager.getInstance().cancelScan();
+            }
         }
     }
 
