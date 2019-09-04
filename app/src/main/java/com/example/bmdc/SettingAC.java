@@ -1,40 +1,38 @@
 package com.example.bmdc;
 
-import android.annotation.SuppressLint;
 
-import androidx.appcompat.app.ActionBar;
+import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattService;
+import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-
+import com.clj.fastble.BleManager;
 import com.clj.fastble.data.BleDevice;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
+import java.util.UUID;
+
 public class SettingAC extends AppCompatActivity {
 
     private static final String TAG = "SettingAC";
     public static final String KEY_DATA = "bledevices";
-    private BleDevice bleDevice;
+    private String[] DynamicRange_DATA={
 
-    /**
-     * Touch listener to use for in-activity_setting UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        bleDevice = getIntent().getParcelableExtra(KEY_DATA);
+        BleDevice bleDevice = getIntent().getParcelableExtra(KEY_DATA);
+        BluetoothGatt gatt = BleManager.getInstance().getBluetoothGatt(bleDevice);
+        BluetoothGattService service = gatt.getService(UUID.fromString("291D567A-6D75-11E6-8B77-86F30CA893D3"));
+        final BluetoothGattCharacteristic Characteristic = service.getCharacteristic(UUID.fromString("B864E140-76A0-416A-BF30-5876504537D9"));
+        assert bleDevice != null;
         Log.d(TAG, "onCreate: " + bleDevice.getName());
     }
 }

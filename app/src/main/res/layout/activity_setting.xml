@@ -3,16 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#303030">
 
     <Button
         android:id="@+id/button2"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="40dp"
-        android:background="#00FFFFFF"
+        android:background="#666666"
         android:text="@string/DR_Vedio"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,12 +21,12 @@
     <Button
         android:id="@+id/button3"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:background="#00FFFFFF"
+        android:layout_marginStart="5dp"
+        android:background="#666666"
         android:text="@string/DR_Extended_Viideo"
-        android:textSize="14"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/button2"
         app:layout_constraintStart_toEndOf="@+id/button2"
         app:layout_constraintTop_toTopOf="@+id/button2"
@@ -34,10 +35,10 @@
     <Button
         android:id="@+id/button4"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:background="#00FFFFFF"
+        android:layout_marginStart="5dp"
+        android:background="#666666"
         android:text="@string/DR_Film"
         app:layout_constraintBottom_toBottomOf="@+id/button3"
         app:layout_constraintStart_toEndOf="@+id/button3"
