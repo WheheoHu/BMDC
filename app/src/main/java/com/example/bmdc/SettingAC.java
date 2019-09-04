@@ -1,10 +1,12 @@
 package com.example.bmdc;
 
 
+import android.app.Service;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +26,7 @@ public class SettingAC extends AppCompatActivity {
 
     private static final String TAG = "SettingAC";
     public static final String KEY_DATA = "bledevices";
+    private Vibrator vibrator;
     private String[] DynamicRange_DATA = {
             "ff0500000107010201",
             "ff0500000107010202",
@@ -37,7 +40,7 @@ public class SettingAC extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-
+        vibrator = (Vibrator) getSystemService(Service.VIBRATOR_SERVICE);
         bleDevice = getIntent().getParcelableExtra(KEY_DATA);
         BluetoothGatt gatt = BleManager.getInstance().getBluetoothGatt(bleDevice);
         final BluetoothGattService service = gatt.getService(UUID.fromString("291D567A-6D75-11E6-8B77-86F30CA893D3"));
@@ -47,10 +50,13 @@ public class SettingAC extends AppCompatActivity {
         button_DR_Video = findViewById(R.id.button_video);
         button_DR_Extended_Video = findViewById(R.id.button_extended_video);
         button_DR_Film = findViewById(R.id.button_film);
-
-
-
+        showDataFromCamera();
         setDynamicRangeButtons();
+
+    }
+
+    private void showDataFromCamera() {
+
     }
 
     private void setDynamicRangeButtons() {
@@ -74,6 +80,7 @@ public class SettingAC extends AppCompatActivity {
                                             + " justWrite: " + HexUtil.formatHexString(justWrite, true));
                                 }
                             });
+                            vibrator.vibrate(50);
                         }
 
                         @Override
