@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -38,7 +37,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginAC extends AppCompatActivity implements View.OnClickListener {
     private Button button_scan;
     private static final int REQUEST_CODE_PERMISSION_LOCATION = 2;
     private static final int REQUEST_CODE_OPEN_GPS = 1;
@@ -90,8 +89,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onDetail(BleDevice bleDevice) {
 //todo finishdetail
                 if (BleManager.getInstance().isConnected(bleDevice)){
-                    Intent intent=new Intent(MainActivity.this,OperationAc.class);
-                    intent.putExtra(OperationAc.KEY_DATA,bleDevice);
+                    Intent intent=new Intent(LoginAC.this, OperationAC.class);
+                    intent.putExtra(OperationAC.KEY_DATA,bleDevice);
                     startActivity(intent);
                 }
             }
@@ -263,7 +262,7 @@ listView_devices.setAdapter(mDeviceAdapter);
             public void onConnectFail(BleDevice bleDevice, BleException e) {
                 button_scan.setText(R.string.start_scan);
                 progressDialog.dismiss();
-                Toast.makeText(MainActivity.this, getString(R.string.connect_fail), Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginAC.this, getString(R.string.connect_fail), Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -281,9 +280,9 @@ listView_devices.setAdapter(mDeviceAdapter);
                 mDeviceAdapter.notifyDataSetChanged();
 
                 if (isActiveDisConnected) {
-                    Toast.makeText(MainActivity.this, getString(R.string.active_disconnected), Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginAC.this, getString(R.string.active_disconnected), Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(MainActivity.this, getString(R.string.disconnected), Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginAC.this, getString(R.string.disconnected), Toast.LENGTH_LONG).show();
                     ObserverManager.getInstance().notifyObserver(bleDevice);
                 }
             }

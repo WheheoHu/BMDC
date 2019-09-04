@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-public class OperationAc extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
+public class OperationAC extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
     public static final String KEY_DATA = "camera";
     private static final String TAG = "OPAC";
     private Vibrator vibrator;
