@@ -7,50 +7,50 @@
     android:background="#303030">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_video"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="40dp"
         android:background="#666666"
-        android:text="@string/DR_Vedio"
+        android:text="@string/DR_Video"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/button_extended_video"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:background="#666666"
-        android:text="@string/DR_Extended_Viideo"
+        android:text="@string/DR_Extended_Video"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/button2"
-        app:layout_constraintStart_toEndOf="@+id/button2"
-        app:layout_constraintTop_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toBottomOf="@+id/button_video"
+        app:layout_constraintStart_toEndOf="@+id/button_video"
+        app:layout_constraintTop_toTopOf="@+id/button_video"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/button_film"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:background="#666666"
         android:text="@string/DR_Film"
-        app:layout_constraintBottom_toBottomOf="@+id/button3"
-        app:layout_constraintStart_toEndOf="@+id/button3"
-        app:layout_constraintTop_toTopOf="@+id/button3" />
+        app:layout_constraintBottom_toBottomOf="@+id/button_extended_video"
+        app:layout_constraintStart_toEndOf="@+id/button_extended_video"
+        app:layout_constraintTop_toTopOf="@+id/button_extended_video" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:text="@string/DymamicRange"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="@+id/button2" />
+        android:text="@string/DynamicRange"
+        app:layout_constraintBottom_toTopOf="@+id/button_video"
+        app:layout_constraintStart_toStartOf="@+id/button_video" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

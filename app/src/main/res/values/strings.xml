@@ -21,8 +21,8 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="Setting">Setting</string>
-    <string name="DymamicRange">Dymamic Range</string>
-    <string name="DR_Vedio">Vedio</string>
-    <string name="DR_Extended_Viideo">Extended Video</string>
+    <string name="DynamicRange">Dynamic Range</string>
+    <string name="DR_Video">Video</string>
+    <string name="DR_Extended_Video">Extended Video</string>
     <string name="DR_Film">Film</string>
 </resources>
