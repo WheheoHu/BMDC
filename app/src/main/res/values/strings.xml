@@ -25,4 +25,20 @@
     <string name="DR_Video">Video</string>
     <string name="DR_Extended_Video">Extended Video</string>
     <string name="DR_Film">Film</string>
+    <string name="Project_Frame_Rate">Project Frame Rate</string>
+    <string name="CODEC_QUALITY">CODEC AND QUALITY</string>
+    <string name="BlackmagicRaw">BlackmagicRaw</string>
+    <string name="ProRes">ProRes</string>
+    <string name="Constant_Bitrate">Constant Bitrate</string>
+    <string name="Constant_Quality">Constant Quality</string>
+    <string name="ThreeToOne">3:1</string>
+    <string name="FiveToOne">5:1</string>
+    <string name="EightToOne">8:1</string>
+    <string name="TwelveToOne">12:1</string>
+    <string name="Q_Zero">Q0</string>
+    <string name="Q_Five">Q5</string>
+    <string name="ProRes_HQ">HQ</string>
+    <string name="ProRes_422">422</string>
+    <string name="Prores_LT">LT</string>
+    <string name="ProRes_PXY">PXY</string>
 </resources>
