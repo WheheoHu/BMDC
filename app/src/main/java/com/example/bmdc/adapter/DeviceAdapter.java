@@ -108,15 +108,15 @@ public class DeviceAdapter extends BaseAdapter{
             holder.txt_mac.setText(mac);
             holder.txt_rssi.setText(String.valueOf(rssi));
             if (isConnected) {
-                holder.img_blue.setImageResource(R.mipmap.ic_blue_connected);
-                holder.txt_name.setTextColor(0xFF1DE9B6);
-                holder.txt_mac.setTextColor(0xFF1DE9B6);
+              //  holder.img_blue.setImageResource(R.mipmap.ic_blue_connected);
+                holder.txt_name.setTextColor(0xFFD6D6D6);
+                holder.txt_mac.setTextColor(0xFFD6D6D6);
                 holder.layout_idle.setVisibility(View.GONE);
                 holder.layout_connected.setVisibility(View.VISIBLE);
             } else {
-               holder.img_blue.setImageResource(R.mipmap.ic_blue_remote);
-                holder.txt_name.setTextColor(0xFF000000);
-                holder.txt_mac.setTextColor(0xFF000000);
+              // holder.img_blue.setImageResource(R.mipmap.ic_blue_remote);
+                holder.txt_name.setTextColor(0xFFD6D6D6);
+                holder.txt_mac.setTextColor(0xFFD6D6D6);
                 holder.layout_idle.setVisibility(View.VISIBLE);
                 holder.layout_connected.setVisibility(View.GONE);
             }
