@@ -24,6 +24,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:textColor="#D6D6D6"
                 android:id="@+id/txt_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -31,6 +32,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:textColor="#D6D6D6"
                 android:id="@+id/txt_mac"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -82,10 +84,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/connected"
-                android:textColor="@color/colorPrimary"
+                android:textColor="#D6D6D6"
                 android:textSize="14sp" />
 
             <Button
+                style="@style/Button_Setting"
                 android:id="@+id/btn_disconnect"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
@@ -94,6 +97,7 @@
                 android:textSize="12sp" />
 
             <Button
+                style="@style/Button_Setting"
                 android:id="@+id/btn_detail"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
