@@ -1,220 +1,230 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/BackGround"
-    tools:context=".LoginAC">
+    tools:context=".LoginAC"
+    android:id="@+id/relativeLayout">
 
 
     <View
         android:id="@+id/view"
         android:layout_width="123dp"
         android:layout_height="match_parent"
-        android:background="@color/BackGround_1" />
+        android:background="@color/BackGround_1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <View
         android:id="@+id/view_verline"
         android:layout_width="2dp"
         android:layout_height="match_parent"
-        android:layout_alignEnd="@+id/view"
-        android:layout_alignParentTop="true"
         android:background="@color/Text_IISB"
-        />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/view" />
 
     <View
         android:id="@+id/view_horline1"
         android:layout_width="123dp"
         android:layout_height="1dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="78dp"
-        android:background="@color/Text_IISB" />
+        android:background="@color/Text_IISB"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <View
         android:id="@+id/view_horline2"
         android:layout_width="123dp"
         android:layout_height="1dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="289dp"
-        android:background="@color/Text_IISB"/>
+        android:background="@color/Text_IISB"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView_IRIS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginStart="30dp"
         android:layout_marginTop="84dp"
         android:text="@string/Aperture"
 
-        android:textColor="@color/Text_IISB" />
+        android:textColor="@color/Text_IISB"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/textView_Show_Aperture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textView_IRIS"
-        android:layout_alignStart="@+id/view"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="5dp"
-        android:textColor="@color/Text_value" />
+        android:textColor="@color/Text_value"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@id/textView_IRIS" />
 
     <TextView
         android:id="@+id/textView_ISO"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView_Show_Aperture"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
 
         android:layout_marginStart="30dp"
         android:layout_marginTop="21dp"
 
         android:text="@string/ISO"
-        android:textColor="@color/Text_IISB" />
+        android:textColor="@color/Text_IISB"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_Show_Aperture"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
     <TextView
         android:id="@+id/textView_Show_ISO"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textView_ISO"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="48dp"
 
-        android:textColor="@color/Text_value" />
+        android:textColor="@color/Text_value"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_ISO" />
 
     <TextView
         android:id="@+id/textView_SHUTTER"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="30dp"
 
         android:layout_marginTop="226dp"
         android:text="@string/Shutter"
-        android:textColor="@color/Text_IISB" />
+        android:textColor="@color/Text_IISB"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
         android:id="@+id/textView_Show_Shutter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textView_SHUTTER"
         android:layout_marginLeft="48dp"
         android:layout_marginTop="5dp"
-        android:textColor="@color/Text_value" />
+        android:textColor="@color/Text_value"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_SHUTTER" />
 
 
     <TextView
         android:id="@+id/textView_IRISValue"
         android:layout_width="299dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:layout_marginLeft="240dp"
         android:layout_marginTop="60dp"
         android:text="IRIS:"
         android:textColor="#D1D1D1"
-        android:textSize="30dp" />
+        android:textSize="30dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <SeekBar
         android:id="@+id/seekbar_IRIS"
         android:layout_width="313.3dp"
         android:layout_height="30dp"
-        android:layout_below="@id/textView_IRISValue"
         android:layout_marginLeft="226.7dp"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_IRISValue" />
 
     <TextView
         android:id="@+id/textView_ISOValue"
         android:layout_width="297dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/seekbar_IRIS"
         android:layout_marginLeft="240dp"
         android:layout_marginTop="13dp"
         android:text="ISO: "
         android:textColor="#D1D1D1"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/seekbar_IRIS" />
 
     <SeekBar
         android:id="@+id/seekbar_ISO"
         android:layout_width="313.3dp"
         android:layout_height="30dp"
-        android:layout_below="@id/textView_ISOValue"
         android:layout_marginLeft="226.7dp"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_ISOValue" />
 
     <TextView
         android:id="@+id/textView_SHUTTERValue"
         android:layout_width="296dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/seekbar_ISO"
         android:layout_marginLeft="240dp"
         android:layout_marginTop="13dp"
         android:text="SHUTTER:"
         android:textColor="#D1D1D1"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/seekbar_ISO" />
 
     <SeekBar
         android:id="@+id/seekbar_SHUTTER"
         android:layout_width="313.3dp"
         android:layout_height="30dp"
-        android:layout_below="@id/textView_SHUTTERValue"
         android:layout_marginLeft="226.7dp"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_SHUTTERValue" />
 
     <Button
         android:id="@+id/button_record"
         android:layout_width="42.5dp"
         android:layout_height="42.5dp"
-        android:layout_below="@id/view_horline2"
-        android:layout_alignStart="@+id/view"
-        android:layout_alignEnd="@+id/view"
 
         android:layout_marginStart="40dp"
 
         android:layout_marginTop="39dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="39dp"
-        android:background="@mipmap/record" />
+        android:background="@mipmap/record"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@id/view_horline2"
+        app:layout_constraintEnd_toEndOf="@+id/view" />
 
     <TextView
         android:id="@+id/textView_Camera_name"
         android:layout_width="100dp"
         android:layout_height="63dp"
-        android:layout_alignStart="@+id/view"
-        android:layout_alignTop="@+id/view"
-        android:layout_alignEnd="@+id/view"
         android:layout_marginStart="5dp"
 
         android:layout_marginTop="5dp"
         android:layout_marginEnd="9dp"
         android:inputType="textMultiLine"
         android:text="BLACKMAGIC"
-        android:textColor="@color/Text_value" />
+        android:textColor="@color/Text_value"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/view" />
 
     <Button
         android:id="@+id/button_setting"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="479dp"
         android:layout_marginTop="142dp"
-        android:layout_toEndOf="@+id/view"
         android:background="#00FFFFFF"
         android:text="@string/Setting"
         android:textColor="#118675"
-        />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/view" />
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

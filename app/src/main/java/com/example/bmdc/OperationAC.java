@@ -403,7 +403,7 @@ public class OperationAC extends AppCompatActivity implements SeekBar.OnSeekBarC
 
         Log.d(TAG, "onCreate: " + bleDevice.getName());
 
-        Button button_rec = findViewById(R.id.button_record);
+        final Button button_rec = findViewById(R.id.button_record);
         button_rec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -419,6 +419,7 @@ public class OperationAC extends AppCompatActivity implements SeekBar.OnSeekBarC
                                             + " justWrite: " + HexUtil.formatHexString(justWrite, true));
                                 }
                             });
+                            button_rec.setBackground(getResources().getDrawable(R.mipmap.record));
                         }
 
                         @Override
@@ -447,6 +448,7 @@ public class OperationAC extends AppCompatActivity implements SeekBar.OnSeekBarC
                                             + " justWrite: " + HexUtil.formatHexString(justWrite, true));
                                 }
                             });
+                            button_rec.setBackground(getResources().getDrawable(R.mipmap.record_ing));
                         }
 
                         @Override
