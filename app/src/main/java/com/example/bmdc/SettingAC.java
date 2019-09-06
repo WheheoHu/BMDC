@@ -65,18 +65,18 @@ public class SettingAC extends AppCompatActivity {
 
     };
     private String[] Braw_DATA = {
-            " ff0600000a00010203020000",
-            " ff0600000a00010203030000",
-            " ff0600000a00010203040000",
-            " ff0600000a00010203050000",
-            " ff0600000a00010203000000",
-            " ff0600000a00010203010000",
+            "ff0600000a00010203020000",
+            "ff0600000a00010203030000",
+            "ff0600000a00010203040000",
+            "ff0600000a00010203050000",
+            "ff0600000a00010203000000",
+            "ff0600000a00010203010000",
     };
     private String[] ProRes_DATA = {
-            " ff0600000a0001020200",
-            " ff0600000a0001020201",
-            " ff0600000a0001020202",
-            " ff0600000a0001020203"
+            "ff0600000a0001020200",
+            "ff0600000a0001020201",
+            "ff0600000a0001020202",
+            "ff0600000a0001020203"
     };
     private String[] WB_Preset_DATA={
             "ff08000001020202e0150000",
@@ -86,7 +86,7 @@ public class SettingAC extends AppCompatActivity {
             "ff0800000102020264190000"
     };
     private HashMap<String, String> ProjectFrameRateHashmap = new HashMap<>();
-    static private Button button_DR_Video, button_DR_Extended_Video, button_DR_Film,
+     private Button button_DR_Video, button_DR_Extended_Video, button_DR_Film,
             button_3to1, button_5to1, button_8to1, button_12to1, button_q0, button_q5,
             button_HQ, button_422, button_LT, button_PXY,
             button_WB_Sun, button_WB_Lamp, button_WB_FLuorescent, button_WB_Shadow, button_WB_Cloudy, button_WB_Auto;
@@ -108,7 +108,7 @@ public class SettingAC extends AppCompatActivity {
         bleDevice = getIntent().getParcelableExtra(KEY_DATA);
         BluetoothGatt gatt = BleManager.getInstance().getBluetoothGatt(bleDevice);
         final BluetoothGattService service = gatt.getService(UUID.fromString("291D567A-6D75-11E6-8B77-86F30CA893D3"));
-        final BluetoothGattCharacteristic Characteristic = service.getCharacteristic(UUID.fromString("5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB"));
+        final BluetoothGattCharacteristic Characteristic = service.getCharacteristic(UUID.fromString("B864E140-76A0-416A-BF30-5876504537D9"));
         assert bleDevice != null;
         Log.d(TAG, "onCreate: " + bleDevice.getName());
         button_DR_Video = findViewById(R.id.button_video);
@@ -195,7 +195,7 @@ public class SettingAC extends AppCompatActivity {
         setWBbuttons();
         setDynamicRangeButtons();
         setBRAWbutton();
-        setProresButton();
+        setProResButton();
 
     }
 
@@ -235,13 +235,44 @@ public class SettingAC extends AppCompatActivity {
                 }
             });
         }
+        button_WB_Auto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes( "ff04000001030002"), new BleWriteCallback() {
+                    @Override
+                    public void onWriteSuccess(final int current, final int total, final byte[] justWrite) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.d(TAG, "run: write success, current: " + current
+                                        + " total: " + total
+                                        + " justWrite: " + HexUtil.formatHexString(justWrite, true));
+                            }
+                        });
+                        vibrator.vibrate(50);
+                    }
+
+                    @Override
+                    public void onWriteFailure(final BleException exception) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.d(TAG, "run: " + exception.toString());
+                            }
+                        });
+
+                    }
+                });
+            }
+        });
     }
 
     class SettingAdapter extends PagerAdapter {
         Context context;
         ArrayList<CardView> settingList;
 
-        public SettingAdapter(Context context, ArrayList<CardView> settingList) {
+        SettingAdapter(Context context, ArrayList<CardView> settingList) {
             this.context = context;
             this.settingList = settingList;
         }
@@ -273,7 +304,7 @@ public class SettingAC extends AppCompatActivity {
     }
 
 
-    private void setProresButton() {
+    private void setProResButton() {
         final Button[] Prores_buttons = {
                 button_HQ, button_422, button_LT, button_PXY
         };
@@ -321,6 +352,7 @@ public class SettingAC extends AppCompatActivity {
                 button_q0,
                 button_q5
         };
+
         for (final Button button : Braw_buttons) {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
