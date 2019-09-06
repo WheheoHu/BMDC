@@ -87,7 +87,7 @@ public class LoginAC extends AppCompatActivity implements View.OnClickListener {
 
             @Override
             public void onDetail(BleDevice bleDevice) {
-//todo finishdetail
+
                 if (BleManager.getInstance().isConnected(bleDevice)){
                     Intent intent=new Intent(LoginAC.this, OperationAC.class);
                     intent.putExtra(OperationAC.KEY_DATA,bleDevice);
