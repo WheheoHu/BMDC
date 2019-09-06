@@ -41,4 +41,10 @@
     <string name="ProRes_422">422</string>
     <string name="Prores_LT">LT</string>
     <string name="ProRes_PXY">PXY</string>
+    <string name="WB_Sun">SUN</string>
+    <string name="WB_Lamp">LAMP</string>
+    <string name="WB_Fluorescent">Fluorescent</string>
+    <string name="WB_Shadow">Shadow</string>
+    <string name="WB_CLOUDY">cloudy</string>
+    <string name="WB_Auto">Auto</string>
 </resources>

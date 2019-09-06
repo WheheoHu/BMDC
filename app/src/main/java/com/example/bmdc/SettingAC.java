@@ -78,10 +78,18 @@ public class SettingAC extends AppCompatActivity {
             " ff0600000a0001020202",
             " ff0600000a0001020203"
     };
+    private String[] WB_Preset_DATA={
+            "ff08000001020202e0150000",
+            "ff08000001020202800c0000",
+            "ff08000001020202a00f0000",
+            "ff0800000102020294110000",
+            "ff0800000102020264190000"
+    };
     private HashMap<String, String> ProjectFrameRateHashmap = new HashMap<>();
     static private Button button_DR_Video, button_DR_Extended_Video, button_DR_Film,
             button_3to1, button_5to1, button_8to1, button_12to1, button_q0, button_q5,
-            button_HQ, button_422, button_LT, button_PXY;
+            button_HQ, button_422, button_LT, button_PXY,
+            button_WB_Sun, button_WB_Lamp, button_WB_FLuorescent, button_WB_Shadow, button_WB_Cloudy, button_WB_Auto;
     private SeekBar seekBar_ProjectFrameRate;
     private TextView textView_framerate;
     ViewPager viewPager;
@@ -118,8 +126,16 @@ public class SettingAC extends AppCompatActivity {
         button_LT = findViewById(R.id.button_prores_LT);
         button_PXY = findViewById(R.id.button_prores_PXY);
 
+        button_WB_Sun = findViewById(R.id.button_WB_Sun);
+        button_WB_Lamp = findViewById(R.id.button_WB_Lamp);
+        button_WB_FLuorescent = findViewById(R.id.button_WB_Fluorscent);
+        button_WB_Shadow = findViewById(R.id.button_WB_Shadow);
+        button_WB_Cloudy = findViewById(R.id.button_WB_CLoudy);
+        button_WB_Auto = findViewById(R.id.button_WB_Auto);
+
+
         cardView_codec = findViewById(R.id.cardview_Codec);
-        cardView_WB=findViewById(R.id.cardview_WB);
+        cardView_WB = findViewById(R.id.cardview_WB);
         viewPager = findViewById(R.id.viewpager_setting);
         settingViews = new ArrayList<>();
         settingViews.add(cardView_WB);
@@ -176,10 +192,49 @@ public class SettingAC extends AppCompatActivity {
         }
         showDataFromCamera();
 
+        setWBbuttons();
         setDynamicRangeButtons();
         setBRAWbutton();
         setProresButton();
 
+    }
+
+    private void setWBbuttons() {
+        final Button[] WB_buttons={
+                button_WB_Sun, button_WB_Lamp, button_WB_FLuorescent, button_WB_Shadow, button_WB_Cloudy
+        };
+        for(final Button button:WB_buttons){
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes( WB_Preset_DATA [Arrays.asList(WB_buttons).indexOf(button)]), new BleWriteCallback() {
+                        @Override
+                        public void onWriteSuccess(final int current, final int total, final byte[] justWrite) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.d(TAG, "run: write success, current: " + current
+                                            + " total: " + total
+                                            + " justWrite: " + HexUtil.formatHexString(justWrite, true));
+                                }
+                            });
+                            vibrator.vibrate(50);
+                        }
+
+                        @Override
+                        public void onWriteFailure(final BleException exception) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.d(TAG, "run: " + exception.toString());
+                                }
+                            });
+
+                        }
+                    });
+                }
+            });
+        }
     }
 
     class SettingAdapter extends PagerAdapter {
@@ -226,7 +281,7 @@ public class SettingAC extends AppCompatActivity {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(Braw_DATA[Arrays.asList(Prores_buttons).indexOf(button)]), new BleWriteCallback() {
+                    BleManager.getInstance().write(bleDevice, "291D567A-6D75-11E6-8B77-86F30CA893D3", "5DD3465F-1AEE-4299-8493-D2ECA2F8E1BB", HexUtil.hexStringToBytes(ProRes_DATA[Arrays.asList(Prores_buttons).indexOf(button)]), new BleWriteCallback() {
                         @Override
                         public void onWriteSuccess(final int current, final int total, final byte[] justWrite) {
                             runOnUiThread(new Runnable() {
